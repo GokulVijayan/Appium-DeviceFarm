@@ -34,7 +34,7 @@ public class Login extends Setup{
 	}
 	
 
-	@Test
+	@Test(priority = 1)
 	public void login() throws Exception {
 
 		List<TestReportSteps> report = null;

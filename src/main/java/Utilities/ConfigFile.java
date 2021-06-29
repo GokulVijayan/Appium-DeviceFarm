@@ -1,30 +1,22 @@
 package Utilities;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.DirectoryStream;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.io.IOUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import GenericComponents.ReusableComponents;
+import com.google.gson.Gson;
+
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
@@ -35,69 +27,53 @@ public class ConfigFile {
     private static AppiumDriver<MobileElement> driver;
 
     static ArrayList<String> lines = new ArrayList<String>();
-	
-    /// <summary>
-    /// To retrieve testdata array input in json array format for the input file specified
-    /// </summary>
-    /// <param name="fileName">Input testdata file name</param>
-	public static JSONArray RetrieveTestData(String fileName) throws Exception
-    {
-		System.out.println(Constant.currentDirectory);
-		Path dir = FileSystems.getDefault().getPath(Constant.currentDirectory );
-		DirectoryStream<Path> stream = Files.newDirectoryStream( dir );
-		for (Path path : stream) {
-		   System.out.println( path.getFileName() );
-		}
-		stream.close();
-		String path1 = "src//main//resources//testdata";
-		//File file = new File(path1);
-		/*
-		 ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		    InputStream inputStream = ConfigFile.class.getClassLoader().getResourceAsStream(Constant.currentDirectory +"//testdata//"+fileName);
-		    String theString = IOUtils.toString(inputStream, "UTF-8"); 
-		    System.out.println( theString );
-		    */
-		    //Get file from resources folder
-	        ClassLoader classLoader = (new ConfigFile()).getClass().getClassLoader();
+    
+    /**
+	 * Retrieve ui mappers 
+	 * @param classLoader 
+	 * @param fileName - input json file name
+	 * @param fullyQualifiedClassName - class file to which input json is converted
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
+	public static <T> Object RetrieveUIMap(ClassLoader classLoader, String fileName, String fullyQualifiedClassName) throws ClassNotFoundException, IOException
+	{
+		Gson gson = new Gson();
+		URL Selector = classLoader.loadClass(fullyQualifiedClassName).getResource(fileName);
+		Class<?> classType = Class.forName(fullyQualifiedClassName);
 
-	        InputStream streamss = classLoader.getResourceAsStream("testdata//"+fileName);
-	        InputStream input=Thread.currentThread().getContextClassLoader().getResourceAsStream( ReusableComponents.GetAbsoluteFilePath("//tmp//testdata//")+fileName);
-	        
-	        //URL resource = ClassLoader.getSystemResource("testdata//"+fileName);
-	        //InputStream streams = resource.openStream();
-
-		    //InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-		    /*BufferedReader reader = new BufferedReader(streamReader);
-		    for (String line; (line = reader.readLine()) != null;) {
-		      lines.add(line);
-		    }*/
-		    String theStrings = IOUtils.toString(input, "UTF-8"); 
-		System.out.println(theStrings.toString());
-		//String path = file.getAbsolutePath()+"//"+fileName;
-		//String data = new String(Files.readAllBytes(Paths.get(fileName))); 
-        JSONObject obj = new JSONObject(theStrings);
-        JSONArray testData = obj.getJSONArray("TestData");
-        return testData;
-    }
+		InputStream SelectorStream = Selector.openStream();
+		BufferedReader brSelector = new BufferedReader(new InputStreamReader(SelectorStream, "UTF-8"));
+		
+		Object selectorCaseObj = gson.fromJson(brSelector, classType);
+			
+		return selectorCaseObj;
+	}
 	
-	  /// <summary>
-    /// Returns UiMap object
-    /// </summary>
-    /// <param name="fileName"></param>
-    /// <returns>JObject</returns>
-	public static JSONObject RetrieveUIMap(String fileName) throws IOException, JSONException
-    {
-		String path1 = "src//main//resources//uiselectors";
-		//File file = new File(path1);
-		//String path = file.getAbsolutePath()+"//"+fileName;
-		//String data = new String(Files.readAllBytes(Paths.get(fileName))); 
-		 ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		    InputStream inputStream = classloader.getResourceAsStream("uiselectors//"+fileName);
-		    String theString = IOUtils.toString(inputStream, "UTF-8"); 
-			System.out.println(theString.toString());
-        JSONObject obj = new JSONObject(theString);
-        return obj;
-    }
+	
+	/**
+	 * Retrieve Testdat
+	 * @param classLoader 
+	 * @param fileName - input json file name
+	 * @param fullyQualifiedClassName - class file to which input json is converted
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
+	public static <T> Object RetrieveTestData(ClassLoader classLoader, String fileName, String fullyQualifiedClassName) throws ClassNotFoundException, IOException
+	{
+		Gson gson = new Gson();
+		URL Selector = classLoader.loadClass(fullyQualifiedClassName).getResource(fileName);
+		Class<?> classType = Class.forName(fullyQualifiedClassName);
+
+		InputStream SelectorStream = Selector.openStream();
+		BufferedReader brSelector = new BufferedReader(new InputStreamReader(SelectorStream, "UTF-8"));
+		
+		Object selectorCaseObj = gson.fromJson(brSelector, classType);
+			
+		return selectorCaseObj;
+	}
 	
 	
     /// <summary>
@@ -107,23 +83,10 @@ public class ConfigFile {
     public static String GetCurrentDateTime() throws Exception
     {
     	LocalDateTime datetime = LocalDateTime.now();
-    	DateTimeFormatter datetimeformat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
+    	DateTimeFormatter datetimeformat = DateTimeFormatter.ofPattern(Constant.dateTimeFormat);
         return datetime.format(datetimeformat);
     }
 	
-	/// <summary>
-    /// Returns configuration settings
-    /// </summary>
-    /// <returns>Configuration</returns>
-    public static String GetAppConfig(String settings) throws Exception
-    {
-    	String path1 = "src//main//java//projectConfig//AppSettings.json";
-		File file = new File(path1);
-		String path = file.getAbsolutePath();
-		String data = new String(Files.readAllBytes(Paths.get("AppSettings.json"))); 
-        JSONObject obj = new JSONObject(data);
-        return obj.get(settings).toString();
-    }
 
 	
     /**
@@ -132,8 +95,7 @@ public class ConfigFile {
      * @throws Exception 
 	 */
 	public static String GetApk() throws Exception {
-		//String apk = Constant.currentDirectory+"//src//main//resources//apkfiles//"+ConfigFile.GetAppConfig("appName");
-		String apk = ConfigFile.GetAppConfig("appName");
+		String apk = Constant.currentDirectory+"//src//main//resources//apkfiles//"+Constant.appName;
 		return apk;
 	}
 	
@@ -146,18 +108,20 @@ public class ConfigFile {
        
     	
     	DesiredCapabilities capabilities = new DesiredCapabilities();
-		//capabilities.setCapability("deviceName", "OnePlus 8");
-		//capabilities.setCapability("udid", "f5f7e6b7");
-		//capabilities.setCapability("platformName", "Android");
-		//capabilities.setCapability("platformVersion", "11"); 
-		//capabilities.setCapability("app", "hibernate.v2.testyourandroid_1910432_apps.evozi.com.apk");
-		//capabilities.setCapability("appPackage","hibernate.v2.testyourandroid");
-		//capabilities.setCapability("appActivity", "hibernate.v2.testyourandroid.ui.main.MainActivity");
-		//capabilities.setCapability("newCommandTimeout", "90000");
-		//capabilities.setCapability("disableWindowAnimation", true);
-		//capabilities.setCapability("noReset", true);
-		//capabilities.setCapability("fullReset", false);
-		//capabilities.setCapability("autoGrantPermissions",true);
+		/*
+    	capabilities.setCapability("deviceName", Constant.deviceName);
+		capabilities.setCapability("udid", Constant.udid);
+		capabilities.setCapability("platformName", Constant.platformName);
+		capabilities.setCapability("platformVersion", Constant.platformVersion); 
+		capabilities.setCapability("app", Constant.appName);
+		capabilities.setCapability("appPackage",Constant.appPackage);
+		capabilities.setCapability("appActivity", Constant.appActivity);
+		capabilities.setCapability("newCommandTimeout", Constant.newCommandTimeout);
+		capabilities.setCapability("disableWindowAnimation", true);
+		capabilities.setCapability("noReset", true);
+		capabilities.setCapability("fullReset", false);
+		capabilities.setCapability("autoGrantPermissions",true);
+		*/
 		
 		try {
 			driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);

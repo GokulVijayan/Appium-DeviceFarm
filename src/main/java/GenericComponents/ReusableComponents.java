@@ -552,6 +552,8 @@ public class ReusableComponents {
 				break;
 			}
 			break;
+		default:
+			break;
 		}
 		return found;
 	}

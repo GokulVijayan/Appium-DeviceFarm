@@ -1,8 +1,7 @@
 /bin/
 /test-output/
 /Results/
-/target/classes
-/target/test-classes
+/target/
 /Tess4j
 /.settings
 /META-INF

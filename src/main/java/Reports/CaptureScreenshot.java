@@ -43,6 +43,6 @@ public class CaptureScreenshot {
                //Save the screenshot
           //     image.SaveAsFile(fileName, );
         }
-        return "Screenshots\\"+fileLocation;
+        return "Screenshots//"+fileLocation;
     }
 }

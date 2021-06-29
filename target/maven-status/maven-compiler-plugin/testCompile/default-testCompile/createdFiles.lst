@@ -1,0 +1,7 @@
+uiselectors\HomePage\HomeSelector.class
+pages\HomePage.class
+uiselectors\FlashPage\FlashSelector.class
+testScripts\FlashTest.class
+testScripts\HomeTest.class
+testdata\LoginPage\LoginTestData.class
+pages\FlashlightPage.class

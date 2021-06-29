@@ -33,6 +33,7 @@ public class FlashTest extends Setup{
 		System.out.println("Input Data is:"+listOfInputs.getPassword());
 	}
 	
+	
 
 	@Test
 	public void login() throws Exception {

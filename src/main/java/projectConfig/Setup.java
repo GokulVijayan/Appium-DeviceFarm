@@ -29,7 +29,7 @@ public class Setup {
     
     
     @BeforeTest
-	public static void BeforeEachTest() throws Exception
+	public  void BeforeEachTest() throws Exception
 	{
 		  Constant.SetConfig();
 		  driver= ConfigFile.Init();
@@ -37,7 +37,7 @@ public class Setup {
 	
 	
 	@AfterTest
-	public static void AfterEachTest() throws Exception
+	public  void AfterEachTest() throws Exception
 	{
     Report.WriteResultToHtml(driver, finalreport, screenshotList, testObjective, scriptName, ReportModifier.scriptCount);
     driver.quit();

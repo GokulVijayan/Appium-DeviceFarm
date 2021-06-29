@@ -11,32 +11,34 @@ import Reports.TestReportSteps;
 import Utilities.ConfigFile;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import uiselectors.LoginPage.LoginSelectorSteps;
 
 public class FlashlightPage {
 	public static JSONObject jObject;
     public static List<String> screenshotList = new ArrayList<String>();
-
-	 
+    static ClassLoader classLoader = LoginSelectorSteps.class.getClassLoader();
+    private static LoginSelectorSteps listOfSelectors;
 	
 	 public static  List<TestReportSteps> FlashOn(AppiumDriver<MobileElement> driver) throws Exception
 		{
 		 List<TestReportSteps> listOfReport=new ArrayList<TestReportSteps>();
+		 listOfSelectors=(LoginSelectorSteps) ConfigFile.RetrieveUIMap(classLoader, "LoginSelector.json", "uiselectors.LoginPage.LoginSelectorSteps");
          screenshotList.clear();
          int step = 0;
          String objective = "To verify that user is able to switch on flashlight.";
-         //jObject = ConfigFile.RetrieveUIMap("FlashlightPageSelector.json");
+       
 
          try
          {
              //Enter username
         	 listOfReport.add(ReusableComponents.GenerateReportSteps("Verify user click switch on.Capture Screenshot.","", objective, step));
-        	 ReusableComponents.Click(driver, "XPath","//android.widget.TextView[@content-desc='Add to home screen']");
+        	 ReusableComponents.Click(driver, "XPath",listOfSelectors.getAddButton());
              listOfReport.get(step++).actualResultFail = "";
              screenshotList.add(CaptureScreenshot.TakeSingleSnapShot(driver, "flashpage"));
 
              //Enter password
              listOfReport.add(ReusableComponents.GenerateReportSteps("Verify popup displayed.Capture Screenshot.","", objective, step));
-             if(ReusableComponents.CheckElementVisible(driver, "XPath", "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button[2]")==true)
+             if(ReusableComponents.CheckElementVisible(driver, "XPath", listOfSelectors.getSubmitButton())==true)
         	 {
                  listOfReport.get(step++).actualResultFail = "";
         	 }

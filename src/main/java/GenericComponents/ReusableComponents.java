@@ -175,7 +175,7 @@ public class ReusableComponents {
 	/// <returns></returns>
 	public static MobileElement FindElement(AppiumDriver<MobileElement> driver, String by, String selector) throws Exception {
 		MobileElement element = null;
-		Selector selectors = Selector.valueOf(selector);
+		Selector selectors = Selector.valueOf(by);
 		switch (selectors) {
 		case Id:
 			WaitUntilElementVisible(driver, by, selector);
@@ -225,7 +225,7 @@ public class ReusableComponents {
 	/// <returns></returns>
 	public static List<MobileElement> FindElements(AppiumDriver<MobileElement> driver, String by, String selector) throws Exception {
 		List<MobileElement> element = null;
-		Selector selectors = Selector.valueOf(selector);
+		Selector selectors = Selector.valueOf(by);
 		switch (selectors) {
 		case Id:
 			WaitUntilElementVisible(driver, by, selector);
@@ -275,7 +275,7 @@ public class ReusableComponents {
 	public static void WaitUntilElementVisible(AppiumDriver<MobileElement> driver, String by, String selector) throws Exception {
 		Stopwatch sw = Stopwatch.createStarted();
 		boolean found = false;
-		Selector selectors = Selector.valueOf(selector);
+		Selector selectors = Selector.valueOf(by);
 		switch (selectors) {
 		case Id:
 			do {
@@ -349,7 +349,7 @@ public class ReusableComponents {
 	/// <param name="selector"></param>
 	public static void WaitUntilElementInvisible(AppiumDriver<MobileElement> driver, String by, String selector) throws Exception {
 		Stopwatch sw = Stopwatch.createStarted();
-		Selector selectors = Selector.valueOf(selector);
+		Selector selectors = Selector.valueOf(by);
 		boolean found = false;
 		switch (selectors) {
 		case Id:
@@ -551,6 +551,8 @@ public class ReusableComponents {
 				found = false;
 				break;
 			}
+			break;
+		default:
 			break;
 		}
 		return found;

@@ -6,7 +6,7 @@ package testScripts;
 import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
+
 
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -15,22 +15,22 @@ import Reports.ReportModifier;
 import Reports.TestReportSteps;
 import Utilities.ConfigFile;
 import pages.FlashlightPage;
-import pages.LoginPage;
 import projectConfig.Setup;
+import testdata.LoginPage.LoginTestData;
+import uiselectors.LoginPage.LoginSelectorSteps;
 
 @Listeners({ ReportModifier.class })
 public class Login extends Setup{
 
 	public static JSONArray inputjson;
-	LoginPage loginPage;
-	public JSONObject listOfInputs;
+    static ClassLoader classLoader = LoginSelectorSteps.class.getClassLoader();
+    private static LoginTestData listOfInputs;
 
 	public Login() throws Exception {
 		testObjective = "To Verify that user is able to login to iroads application";		
 		scriptName="IR001_LoginToApplication";
-		loginPage=new LoginPage();	
-		//inputjson=ConfigFile.RetrieveTestData("LoginTest.json");
-		//System.out.println("Input Data is:"+inputjson);
+		listOfInputs=(LoginTestData) ConfigFile.RetrieveTestData(classLoader, "LoginTestData.json", "testdata.LoginPage.LoginTestData");
+		System.out.println("Input Data is:"+listOfInputs);
 	}
 	
 

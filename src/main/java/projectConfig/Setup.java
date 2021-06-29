@@ -39,8 +39,7 @@ public class Setup {
 	@AfterTest
 	public static void AfterEachTest() throws Exception
 	{
-    Report.WriteResultToHtml(driver, finalreport, screenshotList, testObjective, scriptName);
-    //driver.removeApp(ConfigFile.GetAppConfig("appPackage"));
+    Report.WriteResultToHtml(driver, finalreport, screenshotList, testObjective, scriptName, ReportModifier.scriptCount);
     driver.quit();
     finalreport.clear();
     screenshotList.clear();

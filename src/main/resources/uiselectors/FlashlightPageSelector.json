@@ -1,4 +1,0 @@
-{
-  "addbtn": "//android.widget.TextView[@content-desc='Add to home screen']",
-  "submit":"/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button[2]"
-}

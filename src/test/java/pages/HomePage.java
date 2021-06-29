@@ -1,15 +1,9 @@
 package pages;
 
-
-
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
-
 
 import GenericComponents.ReusableComponents;
 import Reports.CaptureScreenshot;
@@ -17,35 +11,34 @@ import Reports.TestReportSteps;
 import Utilities.ConfigFile;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import uiselectors.FlashPage.FlashSelector;
+import uiselectors.HomePage.HomeSelector;
 
-public class LoginPage {
+public class HomePage {
 	public static JSONObject jObject;
     public static List<String> screenshotList = new ArrayList<String>();
-
-	 
+    static ClassLoader classLoader = HomeSelector.class.getClassLoader();
+    private static HomeSelector listOfSelectors;
 	
-	 public  List<TestReportSteps> LoginToApplication(AppiumDriver<MobileElement> driver,JSONObject inputjson) throws Exception
+	 public static  List<TestReportSteps> Home(AppiumDriver<MobileElement> driver) throws Exception
 		{
 		 List<TestReportSteps> listOfReport=new ArrayList<TestReportSteps>();
+		 listOfSelectors=(HomeSelector) ConfigFile.RetrieveUIMap(classLoader, "HomeSelector.json", "uiselectors.HomePage.HomeSelector");
          screenshotList.clear();
          int step = 0;
-         String objective = "To verify that user has reached homepage.";
-         jObject = ConfigFile.RetrieveUIMap("LoginPageSelector.json");
+         String objective = "To verify that user reaches the home page.";
+       
 
          try
          {
-             //Enter username
+        	 Thread.sleep(5000);
         	 listOfReport.add(ReusableComponents.GenerateReportSteps("Verify homepage is displayed.Capture Screenshot.","", objective, step));
         	 if(ReusableComponents.CheckElementVisible(driver, "XPath", jObject.get("flashlight").toString())==true)
         	 {
                  listOfReport.get(step++).actualResultFail = "";
         	 }
-             screenshotList.add(CaptureScreenshot.TakeSingleSnapShot(driver, "homepage"));
+             screenshotList.add(CaptureScreenshot.TakeSingleSnapShot(driver, "flashpage"));
 
-             //Enter password
-             listOfReport.add(ReusableComponents.GenerateReportSteps("Click on homepage.","", objective, step));
-             ReusableComponents.Click(driver, "XPath", jObject.get("flashlight").toString());
-             listOfReport.get(step++).actualResultFail = "";
              
           
              
@@ -62,18 +55,9 @@ public class LoginPage {
          return listOfReport;
 			
 		}
-	
-	 
-	 
-	 
-	 
-	 
-	 public List<String> getFilePath()
+
+	 public static List<String> getFilePath()
 		{
 			return screenshotList;
 		}
-	 
-	 
-	 
-	 
 }

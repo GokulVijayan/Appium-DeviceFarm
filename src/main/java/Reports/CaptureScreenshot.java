@@ -8,6 +8,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import GenericComponents.ReusableComponents;
+import Utilities.Constant;
 
 
 public class CaptureScreenshot {
@@ -29,7 +30,10 @@ public class CaptureScreenshot {
         else
         {
         	   fileLocation= fileName + ".png";
+        	   if(Constant.runFromLocal.toLowerCase().contains("no"))
                fileName = ReusableComponents.GetAbsoluteFilePath("//tmp//Results//Screenshots") +"//"+ fileLocation;
+        	   else
+        	   fileName = ReusableComponents.GetAbsoluteFilePath("//Results//Screenshots") +"//"+ fileLocation; 
                System.out.println(fileName);
                TakesScreenshot image =((TakesScreenshot)driver);
                File SrcFile=image.getScreenshotAs(OutputType.FILE);
@@ -43,6 +47,6 @@ public class CaptureScreenshot {
                //Save the screenshot
           //     image.SaveAsFile(fileName, );
         }
-        return "Screenshots\\"+fileLocation;
+        return "Screenshots//"+fileLocation;
     }
 }

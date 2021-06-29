@@ -6,7 +6,8 @@
 </listeners>
     <test name="User Login">
         <classes>
-            <class name="testScripts.Login" />
+                    <class name="testScripts.HomeTest" />
+            <class name="testScripts.FlashTest" />
         </classes>
     </test> 
 </suite>

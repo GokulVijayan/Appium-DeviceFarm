@@ -29,7 +29,7 @@ public class FlashTest extends Setup{
 	public FlashTest() throws Exception {
 		testObjective = "To Verify that user is able to login to iroads application";		
 		scriptName="IR001_LoginToApplication";
-		listOfInputs=(LoginTestData) ConfigFile.RetrieveTestData(classLoader, "LoginTestData.json", "testdata.LoginPage.LoginTestData.java");
+		listOfInputs=(LoginTestData) ConfigFile.RetrieveTestData(classLoader, "LoginTestData.json", "testdata.LoginPage.LoginTestData");
 		System.out.println("Input Data is:"+listOfInputs.getPassword());
 	}
 	

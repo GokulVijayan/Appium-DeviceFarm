@@ -8,9 +8,6 @@ import java.time.format.DateTimeFormatter;
 import projectConfig.AppSettingsSteps;
 
 
-
-
-
 public class Constant {
     public static int waitTimeout;
     public static String currentDateTime;
@@ -33,7 +30,7 @@ public class Constant {
     public static String runFromLocal;
     public static final String currentDirectory = System.getProperty("user.dir");
     static ClassLoader classLoader = AppSettingsSteps.class.getClassLoader();
-    private static AppSettingsSteps listOfSettings;
+    private static AppSettingsSteps listOfSettings=new AppSettingsSteps();
     
     /// <summary>
     /// Sets values from configFile into variables
@@ -41,7 +38,6 @@ public class Constant {
     /// <param name="file"></param>
     public static void SetConfig() throws Exception, Exception
     {
-    	listOfSettings=(AppSettingsSteps) ConfigFile.RetrieveUIMap(classLoader, "AppSettings.json", "projectConfig.AppSettingsSteps");
     	timeOut=listOfSettings.getTimeout();
     	dateTimeFormat=listOfSettings.getDateTimeFormat();
     	date=listOfSettings.getDate();

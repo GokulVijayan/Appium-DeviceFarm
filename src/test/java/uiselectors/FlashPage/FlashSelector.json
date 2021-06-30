@@ -1,0 +1,4 @@
+{
+  "flashlight": "//android.widget.TextView[@text='Flashlight']",
+  "addbtn": "hibernate.v2.testyourandroid:id/turnSwitch"
+}

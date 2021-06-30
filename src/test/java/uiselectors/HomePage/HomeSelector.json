@@ -1,0 +1,3 @@
+{
+  "flashlight": "//android.widget.TextView[@text='Flashlight']"
+}

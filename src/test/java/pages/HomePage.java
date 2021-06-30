@@ -23,7 +23,7 @@ public class HomePage {
 	 public static  List<TestReportSteps> Home(AppiumDriver<MobileElement> driver) throws Exception
 		{
 		 List<TestReportSteps> listOfReport=new ArrayList<TestReportSteps>();
-		 listOfSelectors=(HomeSelector) ConfigFile.RetrieveUIMap(classLoader, "HomeSelector.json", "uiselectors.HomePage.HomeSelector");
+		 listOfSelectors=(HomeSelector) ConfigFile.RetrieveUIMap(classLoader, "HomeSelector.json", "uiselectors.HomePage.HomeSelector.java");
          screenshotList.clear();
          int step = 0;
          String objective = "To verify that user reaches the home page.";

@@ -22,7 +22,7 @@ public class FlashlightPage {
 	 public static  List<TestReportSteps> FlashOn(AppiumDriver<MobileElement> driver) throws Exception
 		{
 		 List<TestReportSteps> listOfReport=new ArrayList<TestReportSteps>();
-		 listOfSelectors=(FlashSelector) ConfigFile.RetrieveUIMap(classLoader, "FlashSelector.json", "uiselectors.FlashPage.FlashSelector.java");
+		 listOfSelectors=(FlashSelector) ConfigFile.RetrieveUIMap(classLoader, "FlashSelector.json", "uiselectors.FlashPage.FlashSelector");
          screenshotList.clear();
          int step = 0;
          String objective = "To verify that user is able to switch on flashlight.";

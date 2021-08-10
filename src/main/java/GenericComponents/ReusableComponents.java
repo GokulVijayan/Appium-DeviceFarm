@@ -442,7 +442,7 @@ public class ReusableComponents {
 	/// <returns></returns>
 	public static boolean FindIfElementExists(AppiumDriver<MobileElement> driver, String by, String selector) {
 		boolean isFound = false;
-		Selector selectors = Selector.valueOf(selector);
+		Selector selectors = Selector.valueOf(by);
 		switch (selectors) {
 		case Id:
 			isFound = CheckElementVisible(driver, by, selector);
@@ -491,7 +491,7 @@ public class ReusableComponents {
 	/// <param name="selector"></param>
 	public static boolean CheckElementVisible(AppiumDriver<MobileElement> driver, String by, String selector) {
 		Stopwatch sw = Stopwatch.createStarted();
-		Selector selectors = Selector.valueOf(selector);
+		Selector selectors = Selector.valueOf(by);
 		boolean found = false;
 		switch (selectors) {
 		case Id:

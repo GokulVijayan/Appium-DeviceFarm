@@ -34,7 +34,7 @@ public class AppSettingsSteps {
 		newCommandTimeout= "90000";
 	 	buildVersion="1.1";
 	 	appName="hibernate.v2.testyourandroid_1910432_apps.evozi.com.apk";
-	 	runFromLocal="no";
+	 	runFromLocal="yes";
 	}
 	
 	/**
